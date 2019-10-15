@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initiate Mock User Data
-        Mocks.init_user_data()
+//        Mocks.init_user_data()
 
         img_fav_books.setOnClickListener  { showFavBooksActivity() }
         txt_fav_books.setOnClickListener { showFavBooksActivity() }

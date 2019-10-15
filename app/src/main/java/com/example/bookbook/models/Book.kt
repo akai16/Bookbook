@@ -1,11 +1,13 @@
 package com.example.bookbook.models
 
-class Book(val id: Int, val authors: List<Author>, val title: String, val description: String, val image: String?) {
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    init {
-        authors.forEach {
-            it.addBook(this)
-        }
-    }
+
+@Entity(tableName="book_table")
+data class Book(val title: String, val description: String, val image: String?) {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = -1
 
 }
