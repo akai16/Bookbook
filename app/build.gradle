@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-def room_version = "2.2.0"
 
 android {
     compileSdkVersion 29
@@ -15,7 +14,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -33,7 +41,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Define Room
+    def room_version = "2.2.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    // Material Components
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // Anko
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 }

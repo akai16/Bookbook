@@ -4,17 +4,33 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.bookbook.db.dao.BookDAO
-import com.example.bookbook.models.Book
+import com.example.bookbook.dao.AuthorDAO
+import com.example.bookbook.dao.BookDAO
+import com.example.bookbook.dao.UserDAO
+import com.example.bookbook.entities.BookAuthorEntity
+import com.example.bookbook.entities.FavBooksEntity
+import com.example.bookbook.entities.ReadBooksEntity
+import com.example.bookbook.entities.Author
+import com.example.bookbook.entities.Book
+import com.example.bookbook.entities.User
 
-@Database(entities = [Book::class ], version = 1)
+@Database(entities = [
+    User::class,
+    Author::class,
+    Book::class,
+    BookAuthorEntity::class,
+    FavBooksEntity::class,
+    ReadBooksEntity::class
+], version = 1, exportSchema = false)
 abstract class BookbookDB : RoomDatabase() {
 
+    abstract fun authorDAO() : AuthorDAO
     abstract fun bookDAO() : BookDAO
+    abstract fun userDAO() : UserDAO
 
     companion object {
 
-        var INSTANCE: BookbookDB? = null
+        private var INSTANCE: BookbookDB? = null
 
         fun getDatabase(ctx: Context) : BookbookDB {
 
@@ -24,7 +40,8 @@ abstract class BookbookDB : RoomDatabase() {
                         ctx.applicationContext,
                         BookbookDB::class.java,
                         "bookbook.db"
-                    ).build()
+                    ).addCallback(PrePopulateDB())
+                        .build()
                 }
             }
 

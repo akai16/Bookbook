@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookbook.R
-import com.example.bookbook.models.Book
+import com.example.bookbook.entities.Book
 import com.example.bookbook.views.BookDetailsActivity
 import kotlinx.android.synthetic.main.recycler_fav_book_cell.view.*
 
@@ -25,7 +25,7 @@ class FavBookAdapter(private val list: List<Book>, private val ctx: Context): Re
         val book = list[position]
 
         holder.title?.text  = book.title
-        holder.authors?.text = book.authors[0].name
+//        holder.authors?.text = book.authors[0].name
 
         holder.itemView.setOnClickListener {
             val intent = Intent(ctx, BookDetailsActivity::class.java)

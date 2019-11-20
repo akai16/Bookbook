@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookbook.R
 import com.example.bookbook.adapters.FavBookAdapter
+import com.example.bookbook.db.BookbookDB
 import com.example.bookbook.mocks.Mocks
 import kotlinx.android.synthetic.main.activity_fav_books.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class FavBooksActivity : AppCompatActivity() {
 
@@ -14,9 +17,19 @@ class FavBooksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fav_books)
 
-        val favBookList = Mocks.USER.getFavBooks()
 
-        recycler_fav_books.adapter = FavBookAdapter(favBookList,this)
-        recycler_fav_books.layoutManager = LinearLayoutManager(this)
+        doAsync {
+            val bookbookDB = BookbookDB.getDatabase(this@FavBooksActivity)
+            // TODO : Mock User
+            val favBookList = bookbookDB.userDAO().getUserFavBooks(1)
+
+            uiThread {
+                recycler_fav_books.adapter = FavBookAdapter(favBookList,this@FavBooksActivity)
+                recycler_fav_books.layoutManager = LinearLayoutManager(this@FavBooksActivity)
+            }
+
+        }
+
+
     }
 }
