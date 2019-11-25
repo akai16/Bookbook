@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="4dp"
+>
 
-    <TextView
-        android:id="@+id/tweet_txt"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Donec semper sem nec orci elementum, laoreet fringilla lorem volutpat.
-        Curabitur tempor feugiat ligula, a blandit enim posuere vel."/>
+        android:padding="8dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tweet_book_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:text="Autor do Livro"
-        android:textSize="12sp"/>
-
-    <TextView
-        android:id="@+id/tweet_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:text="dd/MM/YYYY HH:MM"
-        android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/tweet_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tweet Text"
+            android:textSize="16sp" />
 
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tweet_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="dd/MM/YYYY HH:MM"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/tweet_book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:text="Autor do Livro"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

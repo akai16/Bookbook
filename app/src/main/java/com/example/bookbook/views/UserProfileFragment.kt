@@ -41,7 +41,7 @@ class UserProfileFragment : Fragment() {
         db.collection(FirebaseConsts.USERS_COLLECTION).document("e3WVwUV5c9h6RK8ZVuh9")
             .get()
             .addOnSuccessListener {
-                Toast.makeText(context, "UserProfileFragment -> User successfully fetched!!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "User successfully fetched!!!", Toast.LENGTH_SHORT).show()
 
                 // Display User Information
                 this.currentUser = it.toObject(User::class.java)
@@ -52,7 +52,7 @@ class UserProfileFragment : Fragment() {
             }
             .addOnFailureListener {
                 Log.d("Bookbook", "UserProfileFragment -> Failed on fetching user")
-                Toast.makeText(context, "UserProfileFragment -> Couldn't fecth user", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Couldn't fecth user", Toast.LENGTH_SHORT).show()
             }
 
     }
