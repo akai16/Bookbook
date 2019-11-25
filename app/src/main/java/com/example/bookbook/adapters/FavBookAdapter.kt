@@ -25,7 +25,7 @@ class FavBookAdapter(private val list: List<Book>, private val ctx: Context): Re
         val book = list[position]
 
         holder.title?.text  = book.title
-//        holder.authors?.text = book.authors[0].name
+        holder.author?.text = book.author
 
         holder.itemView.setOnClickListener {
             val intent = Intent(ctx, BookDetailsActivity::class.java)
@@ -36,6 +36,6 @@ class FavBookAdapter(private val list: List<Book>, private val ctx: Context): Re
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var title:  TextView? = view.txt_fav_book_title
-        var authors: TextView? = view.txt_fav_book_authors
+        var author: TextView? = view.txt_fav_book_authors
     }
 }

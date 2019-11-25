@@ -5,9 +5,8 @@ object Consts {
     // DEBUG Tag
     const val DEBUG_TAG = "bookbook_debug"
 
-
     // Extras
-    const val EXTRA_BOOK_ID = "extra_book_id"
+    const val EXTRA_USER_DATA = "extra_user_data"
 
 
 

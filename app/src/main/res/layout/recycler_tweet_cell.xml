@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tweet_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Donec semper sem nec orci elementum, laoreet fringilla lorem volutpat.
+        Curabitur tempor feugiat ligula, a blandit enim posuere vel."/>
+
+    <TextView
+        android:id="@+id/tweet_book_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="Autor do Livro"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tweet_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:text="dd/MM/YYYY HH:MM"
+        android:textSize="12sp"/>
+
+
+</LinearLayout>
