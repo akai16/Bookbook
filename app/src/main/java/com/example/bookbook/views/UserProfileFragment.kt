@@ -24,7 +24,6 @@ class UserProfileFragment : Fragment() {
     var currentUser: User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
@@ -57,6 +56,7 @@ class UserProfileFragment : Fragment() {
 
     }
 
+
     override fun onStart() {
         super.onStart()
 
@@ -68,7 +68,7 @@ class UserProfileFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val intent = Intent(context, FavBooksActivity::class.java)
+            val intent = Intent(context, UserBookListActivity::class.java)
             intent.putExtra(Consts.EXTRA_USER_DATA, this.currentUser)
             startActivity(intent)
         }

@@ -9,10 +9,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+        // Avoid reselecting the current page, thus avoiding fragment recreation
+        bottomNavigationView.setOnNavigationItemReselectedListener {}
 
     }
 
