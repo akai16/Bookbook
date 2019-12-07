@@ -16,10 +16,8 @@ data class User(val name: String) : Serializable {
 
 
 
-
     // Using as a Firebase Map
     class UserTweet(val text: String, val bookTitle: String, val bookID: String) : Serializable {
-
         // Needed for Firebase Deserialization
         constructor() : this ("", "", "")
     }
