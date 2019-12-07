@@ -15,6 +15,7 @@ import com.example.bookbook.adapters.UserTweetAdapter
 import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.example.bookbook.entities.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
@@ -34,10 +35,11 @@ class UserProfileFragment : Fragment() {
 
         // Firebase DB Instance
         val db = FirebaseFirestore.getInstance()
+        val mAuth = FirebaseAuth.getInstance()
 
         // Fetch Current User data
         // TODO: Not hardcode User ID
-        db.collection(FirebaseConsts.USERS_COLLECTION).document("e3WVwUV5c9h6RK8ZVuh9")
+        db.collection(FirebaseConsts.USERS_COLLECTION).document(mAuth.currentUser!!.uid)
             .get()
             .addOnSuccessListener {
                 Toast.makeText(context, "User successfully fetched!!!", Toast.LENGTH_SHORT).show()
