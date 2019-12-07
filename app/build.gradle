@@ -54,8 +54,8 @@ dependencies {
 
     // Firebase Products
     implementation 'com.google.firebase:firebase-firestore-ktx:21.3.0'
-
-
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
 }
 
 

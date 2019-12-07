@@ -9,6 +9,4 @@ object Consts {
     const val EXTRA_USER_DATA = "extra_user_data"
 
 
-
-
 }

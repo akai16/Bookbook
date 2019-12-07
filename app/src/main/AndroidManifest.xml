@@ -9,16 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.UserBookListActivity"></activity>
-        <activity android:name=".views.BookDetailsActivity"></activity>
-        <activity android:name=".views.FavBooksActivity"></activity>
-        <activity android:name=".views.MainActivity">
+        <activity android:name=".views.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.UserBookListActivity" />
+        <activity android:name=".views.BookDetailsActivity" />
+        <activity android:name=".views.FavBooksActivity" />
+        <activity android:name=".views.MainActivity" />
     </application>
 
 </manifest>

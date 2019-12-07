@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Open Activity with Profile Tab
+        bottomNavigationView.selectedItemId = R.id.nav_profile
+
+
         // Avoid reselecting the current page, thus avoiding fragment recreation
         bottomNavigationView.setOnNavigationItemReselectedListener {}
 
