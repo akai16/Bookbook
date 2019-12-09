@@ -41,6 +41,7 @@ class UserProfileFragment : Fragment() {
 
         // Fetch Current User data
         fetchUserData()
+
     }
 
 
@@ -80,6 +81,15 @@ class UserProfileFragment : Fragment() {
 
             val intent = Intent(context, UserBookListActivity::class.java)
             intent.putExtra(Consts.EXTRA_USER_DATA, this.currentUser)
+            startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        fab.setOnClickListener{
+            val intent = Intent(context, MessageActivity::class.java)
             startActivity(intent)
         }
     }
