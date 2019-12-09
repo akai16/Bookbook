@@ -8,6 +8,7 @@ data class User(val name: String) : Serializable {
     @DocumentId lateinit var id: String
 
     var favBooks: List<String> = listOf()
+    var wishList: List<String> = listOf()
     var tweetList: List<UserTweet> = listOf()
 
 

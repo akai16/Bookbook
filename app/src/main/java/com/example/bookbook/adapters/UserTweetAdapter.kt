@@ -25,7 +25,6 @@ class UserTweetAdapter(private val tweetList: List<User.UserTweet>, private val 
 
         holder.tweetText.text = tweet.text
         holder.tweetBookTitle.text = tweet.bookTitle
-//        holder.tweetTimestamp.text = tweet.timestamp
 
     }
 
@@ -33,7 +32,6 @@ class UserTweetAdapter(private val tweetList: List<User.UserTweet>, private val 
 
         val tweetText = itemView.tweet_txt
         val tweetBookTitle = itemView.tweet_book_title
-//        val tweetTimestamp = itemView.tweet_timestamp
     }
 
 }

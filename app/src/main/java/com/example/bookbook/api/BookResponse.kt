@@ -11,6 +11,7 @@ class BookResponse {
     inner class VolumeInfo {
         lateinit var title: String
         lateinit var imageLinks: ImageLinks
+        var description: String? = ""
     }
 
 
@@ -24,7 +25,7 @@ class BookResponse {
         val book = Book(
             this.volumeInfo.title,
             "",
-            "",
+            this.volumeInfo.description ?: "" ,
             this.volumeInfo.imageLinks.smallThumbnail
         )
 
