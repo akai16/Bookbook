@@ -9,16 +9,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val profileFragment = UserProfileFragment()
+
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_profile -> {
-                    showFragment(UserProfileFragment())
+                    showFragment(profileFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_search-> {
-                    Toast.makeText(this, "Search -> Not implemented yet", Toast.LENGTH_SHORT).show()
+                    showFragment(BookSearchFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -42,14 +43,13 @@ class MainActivity : AppCompatActivity() {
         // Open Activity with Profile Tab
         bottomNavigationView.selectedItemId = R.id.nav_profile
 
-
         // Avoid reselecting the current page, thus avoiding fragment recreation
         bottomNavigationView.setOnNavigationItemReselectedListener {}
 
     }
 
 
-    fun showFragment(fragment: Fragment) {
+    private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(
             R.id.frame_container, fragment
         ).commit()

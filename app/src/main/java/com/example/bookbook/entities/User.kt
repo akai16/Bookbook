@@ -7,13 +7,12 @@ data class User(val name: String) : Serializable {
 
     @DocumentId lateinit var id: String
 
-    lateinit var favBooks: List<String>
+    var favBooks: List<String> = listOf()
     var tweetList: List<UserTweet> = listOf()
 
 
     // Needed for Firebase Deserialization
     constructor() : this( "")
-
 
 
     // Using as a Firebase Map

@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
         // Firebase Auth
         val mAuth = FirebaseAuth.getInstance()
 
@@ -36,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Usuario já está logado", Toast.LENGTH_SHORT).show()
             goToProfilePage()
         }
-
         else {
             showSignInOptions()
         }
@@ -69,20 +67,23 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
     private fun registerUserOnFireStore(user: FirebaseUser) {
 
         val db = FirebaseFirestore.getInstance()
-        val newUser = hashMapOf(
-            "name" to user.displayName
-        )
+//        val newUser = hashMapOf(
+//            "name" to user.displayName,
+//
+//        )
+
+        val newUser = User(user.displayName!!)
 
         db.collection(FirebaseConsts.USERS_COLLECTION).document(user.uid)
             .set(newUser)
             .addOnSuccessListener{ Log.d(Consts.DEBUG_TAG, "User successfully added!") }
-            .addOnFailureListener(){ Log.d(Consts.DEBUG_TAG, "Error when registering user") }
+            .addOnFailureListener{ Log.d(Consts.DEBUG_TAG, "Error when registering user") }
 
     }
-
 
 
     private fun showSignInOptions() {
