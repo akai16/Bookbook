@@ -1,4 +1,4 @@
-package com.example.bookbook.views
+package com.example.bookbook.views.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

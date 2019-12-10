@@ -15,6 +15,7 @@ import com.example.bookbook.adapters.UserTweetAdapter
 import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.example.bookbook.entities.User
+import com.example.bookbook.views.activities.MessageActivity
 import com.example.bookbook.views.activities.UserBookListActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
