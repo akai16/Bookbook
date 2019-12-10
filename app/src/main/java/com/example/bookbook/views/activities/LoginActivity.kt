@@ -70,10 +70,6 @@ class LoginActivity : AppCompatActivity() {
     private fun registerUserOnFireStore(user: FirebaseUser) {
 
         val db = FirebaseFirestore.getInstance()
-//        val newUser = hashMapOf(
-//            "name" to user.displayName,
-//
-//        )
 
         val newUser = User(user.displayName!!)
 

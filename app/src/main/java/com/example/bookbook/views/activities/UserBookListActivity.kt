@@ -42,7 +42,7 @@ class UserBookListActivity : FragmentActivity() {
             return when (position) {
                 0 -> resources.getString(R.string.favorite_books)
                 1 -> resources.getString(R.string.wishlist)
-                else -> ""
+                else -> null
             }
         }
     }
