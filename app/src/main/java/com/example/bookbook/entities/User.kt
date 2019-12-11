@@ -34,11 +34,13 @@ data class User(val name: String) : Serializable {
 
 
     companion object{
-        fun convertToUser(documet: DocumentSnapshot): User{
+        fun convertToUser(documentId: String, document: DocumentSnapshot): User{
 
-            val userFirestore = documet.data
+            val userFirestore = document.data
 
             val user = User(userFirestore!![FirebaseConsts.USER_NAME] as String)
+
+            user.id = documentId
             user.favBooks = userFirestore[FirebaseConsts.USER_FAV_BOOKS_LIST] as List<String>
             user.wishList = userFirestore[FirebaseConsts.USER_WISH_LIST] as List<String>
 

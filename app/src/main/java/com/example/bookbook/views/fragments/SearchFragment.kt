@@ -24,8 +24,8 @@ class SearchFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_search_page, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         // Set View Pager and Tab Layout
         val mAdapter = SearchPageAdapter(activity!!.supportFragmentManager)
@@ -33,7 +33,6 @@ class SearchFragment : Fragment() {
 
         search_tab_layout.setupWithViewPager(search_view_pager)
     }
-
 
     inner class SearchPageAdapter(fragManager: FragmentManager) :
         FragmentPagerAdapter(fragManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

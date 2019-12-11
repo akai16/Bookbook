@@ -30,7 +30,11 @@ class UserProfileFragment : Fragment() {
     private var db: FirebaseFirestore? = null
     private var mAuth: FirebaseAuth? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
@@ -46,19 +50,42 @@ class UserProfileFragment : Fragment() {
 
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        fab.setOnClickListener {
+            val intent = Intent(context, MessageActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (currentUser != null) {
+
+            db!!.collection(FirebaseConsts.USERS_COLLECTION)
+                .document(currentUser!!.id).get().addOnSuccessListener {
+                    this.currentUser = User.convertToUser(this.currentUser!!.id, it)
+
+                    // Tweets List
+                    recycler_user_tweet.adapter = UserTweetAdapter(this.currentUser!!.tweetList, context!!)
+                    recycler_user_tweet.adapter!!.notifyDataSetChanged()
+
+                }
+        }
+
+    }
+
 
     private fun fetchUserData() {
         db!!.collection(FirebaseConsts.USERS_COLLECTION).document(mAuth!!.currentUser!!.uid)
             .get()
             .addOnSuccessListener {
                 Toast.makeText(context, "User successfully fetched!!!", Toast.LENGTH_SHORT).show()
-                this.currentUser = User.convertToUser(it)
-                // Display User Information
-//                this.currentUser = it.toObject(User::class.java)
+                this.currentUser = User.convertToUser(it.id, it)
 
-                if (this.currentUser != null) {
-                    displayUserInformation(this.currentUser!!)
-                }
+                displayUserInformation(this.currentUser!!)
             }
             .addOnFailureListener {
                 Log.d("Bookbook", "UserProfileFragment -> Failed on fetching user")
@@ -98,15 +125,5 @@ class UserProfileFragment : Fragment() {
             startActivity(intent)
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        fab.setOnClickListener{
-            val intent = Intent(context, MessageActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
 
 }
