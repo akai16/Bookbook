@@ -23,6 +23,8 @@ class MessageActivity : AppCompatActivity(){
 
     override fun onStart() {
         super.onStart()
+        val database = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser
 
         messageCancel.setOnClickListener{
             finish()
@@ -30,11 +32,13 @@ class MessageActivity : AppCompatActivity(){
 
 
         messageSend.setOnClickListener{
-            val database = FirebaseFirestore.getInstance()
-            val user = FirebaseAuth.getInstance().currentUser
-
-            database.collection(FirebaseConsts.USERS_COLLECTION).document(user!!.uid).update(FirebaseConsts.USER_TWEET_LIST, FieldValue.arrayUnion(comment.text.toString()))
-//            finish()
+            database.collection(FirebaseConsts.USERS_COLLECTION)
+                .document(user!!.uid)
+                .update(
+                    FirebaseConsts.USER_TWEET_LIST,
+                    FieldValue.arrayUnion(comment.text.toString())
+                )
+            finish()
         }
     }
 

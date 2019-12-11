@@ -52,9 +52,9 @@ class UserProfileFragment : Fragment() {
             .get()
             .addOnSuccessListener {
                 Toast.makeText(context, "User successfully fetched!!!", Toast.LENGTH_SHORT).show()
-                User.convertToUserTweet(it)
+                this.currentUser = User.convertToUser(it)
                 // Display User Information
-                this.currentUser = it.toObject(User::class.java)
+//                this.currentUser = it.toObject(User::class.java)
 
                 if (this.currentUser != null) {
                     displayUserInformation(this.currentUser!!)

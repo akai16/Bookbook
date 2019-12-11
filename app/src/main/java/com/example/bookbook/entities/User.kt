@@ -1,10 +1,13 @@
 package com.example.bookbook.entities
 
+import android.util.Log
+import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.google.firebase.firestore.DocumentId
 import java.io.Serializable
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.getField
+import java.io.ObjectInput
 
 data class User(val name: String) : Serializable {
 
@@ -31,14 +34,25 @@ data class User(val name: String) : Serializable {
 
 
     companion object{
-        fun convertToUserTweet(documet: DocumentSnapshot){
+        fun convertToUser(documet: DocumentSnapshot): User{
 
-            val tweetList = documet.getField<List<String>>(FirebaseConsts.USER_TWEET_LIST)
-            val asdsada = 0
-//            for ( str in tweetList){
-//
-//            }
+            val userFirestore = documet.data
 
+            val user = User(userFirestore!![FirebaseConsts.USER_NAME] as String)
+            user.favBooks = userFirestore[FirebaseConsts.USER_FAV_BOOKS_LIST] as List<String>
+            user.wishList = userFirestore[FirebaseConsts.USER_WISH_LIST] as List<String>
+
+
+            // Get Tweet List
+            val tweetList = mutableListOf<UserTweet>()
+
+            (userFirestore[FirebaseConsts.USER_TWEET_LIST] as List<*>).forEach {
+                tweetList.add(UserTweet(it as String))
+            }
+
+            user.tweetList = tweetList
+
+            return user
         }
     }
 
