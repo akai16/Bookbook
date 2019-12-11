@@ -39,7 +39,7 @@ class SearchFragment : Fragment() {
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> SearchBookFragment()
-                1 -> SearchBookFragment()
+                1 -> SearchUserFragment()
                 else -> Fragment()
             }
 
