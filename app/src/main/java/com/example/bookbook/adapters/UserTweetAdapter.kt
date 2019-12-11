@@ -24,14 +24,14 @@ class UserTweetAdapter(private val tweetList: List<User.UserTweet>, private val 
         val tweet = tweetList[position]
 
         holder.tweetText.text = tweet.text
-        holder.tweetBookTitle.text = tweet.bookTitle
+//        holder.tweetBookTitle.text = tweet.bookTitle
 
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tweetText = itemView.tweet_txt
-        val tweetBookTitle = itemView.tweet_book_title
+//        val tweetBookTitle = itemView.tweet_book_title
     }
 
 }

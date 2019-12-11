@@ -21,22 +21,22 @@
             android:textSize="16sp" />
 
 
-        <TextView
-            android:id="@+id/tweet_timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="dd/MM/YYYY HH:MM"
-            android:textSize="12sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/tweet_timestamp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="start"-->
+<!--            android:text="dd/MM/YYYY HH:MM"-->
+<!--            android:textSize="12sp" />-->
 
 
-        <TextView
-            android:id="@+id/tweet_book_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:text="Autor do Livro"
-            android:textSize="14sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/tweet_book_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|end"-->
+<!--            android:text="Autor do Livro"-->
+<!--            android:textSize="14sp" />-->
 
     </LinearLayout>
 
