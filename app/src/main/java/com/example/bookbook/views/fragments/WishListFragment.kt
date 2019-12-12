@@ -45,9 +45,6 @@ class WishListFragment : Fragment() {
         // Retrofit
         val bookService = RetrofitInitializer().bookService()
 
-        // Firebase DB Instance
-        val db = FirebaseFirestore.getInstance()
-
         this.currentUser = activity!!.intent.getSerializableExtra(Consts.EXTRA_USER_DATA) as User?
 
         // Finish activity in case User data was not correctly retrieved

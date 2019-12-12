@@ -66,6 +66,9 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Architecture Components
+    implementation "android.arch.lifecycle:extensions:1.1.0"
 }
 
 

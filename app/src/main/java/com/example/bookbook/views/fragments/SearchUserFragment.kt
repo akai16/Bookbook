@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookbook.R
+import com.example.bookbook.adapters.UserSearchAdapter
 import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.example.bookbook.entities.User
@@ -46,18 +48,26 @@ class SearchUserFragment : Fragment() {
             listUsers(edit_user_search.text.toString())
         }
 
+        recycler_search_user.adapter = UserSearchAdapter(context!!, userList)
+        recycler_search_user.layoutManager = LinearLayoutManager(context)
     }
 
 
     private fun listUsers(queryString: String) {
+
+        this.userList.removeAll { true }
 
         this.db
             .collection(FirebaseConsts.USERS_COLLECTION)
             .whereGreaterThanOrEqualTo("name", queryString)
             .get()
             .addOnSuccessListener {
-                for (user in it) {
-                    this.userList.add(User.convertToUser(user))
+                if (!it.isEmpty) {
+                    for (user in it.documents) {
+                        this.userList.add(User.convertToUser(user.id, user))
+                    }
+
+                    recycler_search_user.adapter = UserSearchAdapter(context!!, userList)
                 }
             }
             .addOnFailureListener {

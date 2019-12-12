@@ -59,12 +59,12 @@ class BookSearchAdapter(private val context: Context, private val bookList: List
 
         // Add Btn Listeners
         holder.wishListBtn.setOnClickListener {
-            db.collection(FirebaseConsts.USERS_COLLECTION).document(user!!.uid).update(FirebaseConsts.USER_WISH_LIST, FieldValue.arrayUnion(book.id))
+            db.collection(FirebaseConsts.USERS_COLLECTION).document(user!!.uid).update(FirebaseConsts.USER.WISH_LIST, FieldValue.arrayUnion(book.id))
             Toast.makeText(context, "Livro adicionado a Lista de Desejos", Toast.LENGTH_SHORT).show()
         }
 
         holder.favBooksBtn.setOnClickListener {
-            db.collection(FirebaseConsts.USERS_COLLECTION).document(user!!.uid).update(FirebaseConsts.USER_FAV_BOOKS_LIST, FieldValue.arrayUnion(book.id))
+            db.collection(FirebaseConsts.USERS_COLLECTION).document(user!!.uid).update(FirebaseConsts.USER.FAV_BOOKS_LIST, FieldValue.arrayUnion(book.id))
             Toast.makeText(context, "Livro adicionado aos Favoritos", Toast.LENGTH_SHORT).show()
         }
 

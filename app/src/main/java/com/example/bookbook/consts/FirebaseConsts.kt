@@ -7,8 +7,19 @@ object FirebaseConsts {
 
 
     // User Document Fields
-    const val USER_NAME = "name"
-    const val USER_FAV_BOOKS_LIST = "favBooks"
-    const val USER_WISH_LIST = "wishList"
-    const val USER_TWEET_LIST = "tweetList"
+    object USER {
+        const val NAME = "name"
+        const val FAV_BOOKS_LIST = "favBooks"
+        const val WISH_LIST = "wishList"
+        const val TWEET_LIST = "tweetList"
+    }
+
+    object TWEET {
+        const val ID = "id"
+        const val USER_ID = "userID"
+        const val BOOK_ID = "bookID"
+        const val TEXT = "text"
+        const val TIMESTAMP = "timestamp"
+    }
+
 }

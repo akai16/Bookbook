@@ -8,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.bookbook.R
@@ -15,113 +18,77 @@ import com.example.bookbook.adapters.UserTweetAdapter
 import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.example.bookbook.entities.User
+import com.example.bookbook.viewmodel.ProfileViewModel
 import com.example.bookbook.views.activities.MessageActivity
 import com.example.bookbook.views.activities.UserBookListActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 
 
 class UserProfileFragment : Fragment() {
 
-    private var currentUser: User? = null
+
+    // ViewModels
+    private val profileViewModel : ProfileViewModel by lazy {
+        ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+    }
+
+    // Observers
+    private val profileObserver = Observer<User> {
+        displayUserInformation(it)
+    }
 
     // FireBase Objects
-    private var db: FirebaseFirestore? = null
-    private var mAuth: FirebaseAuth? = null
+    private var mAuth = FirebaseAuth.getInstance()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        this.profileViewModel.changeNotifier.observe(this, profileObserver)
+        this.profileViewModel.fetchUserData(mAuth.uid!!)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
 
-        // FireBase Instances
-        db = FirebaseFirestore.getInstance()
-        mAuth = FirebaseAuth.getInstance()
-
-        // Fetch Current User data
-        fetchUserData()
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        fab.setOnClickListener {
-            val intent = Intent(context, MessageActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (currentUser != null) {
-
-            db!!.collection(FirebaseConsts.USERS_COLLECTION)
-                .document(currentUser!!.id).get().addOnSuccessListener {
-                    this.currentUser = User.convertToUser(this.currentUser!!.id, it)
-
-                    // Tweets List
-                    recycler_user_tweet.adapter = UserTweetAdapter(this.currentUser!!.tweetList, context!!)
-                    recycler_user_tweet.adapter!!.notifyDataSetChanged()
-
-                }
+        // Setting Click Listeners
+        view.fab.setOnClickListener {
+            startActivity(Intent(context, MessageActivity::class.java))
         }
 
+        // Tweet Recycler View
+        view.recycler_user_tweet.adapter = UserTweetAdapter(mutableListOf(), context!!)
+        view.recycler_user_tweet.layoutManager = LinearLayoutManager(context)
+
+        return view
     }
 
-
-    private fun fetchUserData() {
-        db!!.collection(FirebaseConsts.USERS_COLLECTION).document(mAuth!!.currentUser!!.uid)
-            .get()
-            .addOnSuccessListener {
-                Toast.makeText(context, "User successfully fetched!!!", Toast.LENGTH_SHORT).show()
-                this.currentUser = User.convertToUser(it.id, it)
-
-                displayUserInformation(this.currentUser!!)
-            }
-            .addOnFailureListener {
-                Log.d("Bookbook", "UserProfileFragment -> Failed on fetching user")
-                Toast.makeText(context, "Couldn't fecth user", Toast.LENGTH_SHORT).show()
-            }
-    }
 
     private fun displayUserInformation(user: User) {
         // Profile Name
         txt_username.text = user.name
 
-        // Tweets List
+
+        //  Tweets List
         recycler_user_tweet.adapter = UserTweetAdapter(user.tweetList, context!!)
-        recycler_user_tweet.layoutManager = LinearLayoutManager(context!!)
 
         txt_fav_books.setOnClickListener {
-
-            if (this.currentUser == null) {
-                Toast.makeText(context, "Error on retrieving user data", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             val intent = Intent(context, UserBookListActivity::class.java)
-            intent.putExtra(Consts.EXTRA_USER_DATA, this.currentUser)
+            intent.putExtra(Consts.EXTRA_USER_DATA, user)
             startActivity(intent)
         }
 
         txt_wish_list.setOnClickListener {
-
-            if (this.currentUser == null) {
-                Toast.makeText(context, "Error on retrieving user data", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             val intent = Intent(context, UserBookListActivity::class.java)
-            intent.putExtra(Consts.EXTRA_USER_DATA, this.currentUser)
+            intent.putExtra(Consts.EXTRA_USER_DATA, user)
             startActivity(intent)
         }
     }

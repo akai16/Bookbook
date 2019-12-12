@@ -1,34 +1,24 @@
 package com.example.bookbook.entities
 
-import android.util.Log
-import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.google.firebase.firestore.DocumentId
 import java.io.Serializable
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.ktx.getField
-import java.io.ObjectInput
 
 data class User(val name: String) : Serializable {
 
     @DocumentId lateinit var id: String
 
-    var favBooks: List<String> = listOf()
-    var wishList: List<String> = listOf()
-    var tweetList: List<UserTweet> = listOf()
+    var favBooks: MutableList<String> = mutableListOf()
+    var wishList: MutableList<String> = mutableListOf()
+    var tweetList: MutableList<Tweet> = mutableListOf()
 
 
     // Needed for Firebase Deserialization
     constructor() : this( "")
 
 
-    // Using as a Firebase Map
-//    class UserTweet(val text: String, val bookTitle: String, val bookID: String) : Serializable {
-//        // Needed for Firebase Deserialization
-//        constructor() : this ("", "", "")
-//    }
-
-    class UserTweet(val text: String) : Serializable{
+    class UserTweet(val text: String) : Serializable {
         constructor():this ("")
     }
 
@@ -38,18 +28,24 @@ data class User(val name: String) : Serializable {
 
             val userFirestore = document.data
 
-            val user = User(userFirestore!![FirebaseConsts.USER_NAME] as String)
+            val user = User(userFirestore!![FirebaseConsts.USER.NAME] as String)
 
             user.id = documentId
-            user.favBooks = userFirestore[FirebaseConsts.USER_FAV_BOOKS_LIST] as List<String>
-            user.wishList = userFirestore[FirebaseConsts.USER_WISH_LIST] as List<String>
+
+
+            @Suppress("UNCHECKED_CAST")
+            user.favBooks = userFirestore[FirebaseConsts.USER.FAV_BOOKS_LIST] as? MutableList<String> ?: mutableListOf()
+            @Suppress("UNCHECKED_CAST")
+            user.wishList = userFirestore[FirebaseConsts.USER.WISH_LIST] as? MutableList<String> ?: mutableListOf()
 
 
             // Get Tweet List
-            val tweetList = mutableListOf<UserTweet>()
+            val tweetList = mutableListOf<Tweet>()
 
-            (userFirestore[FirebaseConsts.USER_TWEET_LIST] as List<*>).forEach {
-                tweetList.add(UserTweet(it as String))
+            if (FirebaseConsts.USER.TWEET_LIST in userFirestore)
+            (userFirestore[FirebaseConsts.USER.TWEET_LIST] as MutableList<*>).forEach {
+                @Suppress("UNCHECKED_CAST")
+                tweetList.add(Tweet.fromSnapshotToTweet(it as HashMap<String, Any?>))
             }
 
             user.tweetList = tweetList

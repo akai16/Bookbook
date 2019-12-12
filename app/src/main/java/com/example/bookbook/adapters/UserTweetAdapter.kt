@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookbook.R
+import com.example.bookbook.entities.Tweet
 import com.example.bookbook.entities.User
 import kotlinx.android.synthetic.main.recycler_tweet_cell.view.*
 
-class UserTweetAdapter(private val tweetList: List<User.UserTweet>, private val ctx: Context) : RecyclerView.Adapter<UserTweetAdapter.ViewHolder>() {
+class UserTweetAdapter(private val tweetList: MutableList<Tweet>, private val ctx: Context) : RecyclerView.Adapter<UserTweetAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.recycler_tweet_cell, parent, false)
@@ -32,6 +33,17 @@ class UserTweetAdapter(private val tweetList: List<User.UserTweet>, private val 
 
         val tweetText = itemView.tweet_txt
 //        val tweetBookTitle = itemView.tweet_book_title
+    }
+
+
+    fun clearAll() {
+        val size = itemCount
+        tweetList.removeAll { true }
+        notifyItemRangeRemoved(0, size)
+    }
+
+    fun addNewList() {
+
     }
 
 }
