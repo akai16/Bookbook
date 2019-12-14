@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val profileFragment = UserProfileFragment()
-    val searchFragment = SearchFragment()
-    var active: Fragment = profileFragment
+    private val profileFragment = UserProfileFragment()
+    private val searchFragment = SearchFragment()
+    private var active: Fragment = profileFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

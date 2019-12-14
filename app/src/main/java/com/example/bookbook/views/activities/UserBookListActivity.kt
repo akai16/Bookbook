@@ -6,11 +6,18 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.bookbook.R
-import com.example.bookbook.views.fragments.FavBooksFragment
-import com.example.bookbook.views.fragments.WishListFragment
+import com.example.bookbook.consts.Consts
+import com.example.bookbook.entities.User
+import com.example.bookbook.views.fragments.UserBookListFragment
 import kotlinx.android.synthetic.main.activity_user_book_list.*
 
 class UserBookListActivity : FragmentActivity() {
+
+    var favBookList: List<String> = listOf()
+    var wishList: List<String> = listOf()
+
+    // Fragments or each List
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +28,11 @@ class UserBookListActivity : FragmentActivity() {
         viewPager.adapter = mAdapter
 
         tabLayout.setupWithViewPager(viewPager)
+
+        val user = intent.getSerializableExtra(Consts.EXTRA_USER_DATA) as User
+        this.favBookList = user.favBooks
+        this.wishList = user.wishList
+
     }
 
 
@@ -30,8 +42,8 @@ class UserBookListActivity : FragmentActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> FavBooksFragment()
-                1 -> WishListFragment()
+                0 -> UserBookListFragment.newInstance(favBookList)
+                1 -> UserBookListFragment.newInstance(wishList)
                 else -> Fragment()
             }
         }

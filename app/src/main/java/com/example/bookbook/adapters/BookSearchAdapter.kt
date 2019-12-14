@@ -26,7 +26,7 @@ class BookSearchAdapter(private val context: Context, private val bookList: List
     RecyclerView.Adapter<BookSearchAdapter.ViewHolder>() {
 
     val user = FirebaseAuth.getInstance().currentUser
-    val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recycler_book_search_cell, parent, false)
@@ -49,10 +49,8 @@ class BookSearchAdapter(private val context: Context, private val bookList: List
             }
 
             override fun onError(e: Exception?) {
-
                 e!!.printStackTrace()
                 Log.d(Consts.DEBUG_TAG, "Erro ao baixar imagem")
-
             }
 
         })

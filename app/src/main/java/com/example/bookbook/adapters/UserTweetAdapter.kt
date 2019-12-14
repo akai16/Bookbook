@@ -29,7 +29,7 @@ class UserTweetAdapter(private val tweetList: MutableList<Tweet>, private val ct
 
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val tweetText = itemView.tweet_txt
 //        val tweetBookTitle = itemView.tweet_book_title
@@ -42,8 +42,11 @@ class UserTweetAdapter(private val tweetList: MutableList<Tweet>, private val ct
         notifyItemRangeRemoved(0, size)
     }
 
-    fun addNewList() {
-
+    fun addNewList(newList: List<Tweet>) {
+        newList.forEach {
+            tweetList.add(it)
+        }
+        notifyItemRangeInserted(0, itemCount)
     }
 
 }

@@ -13,7 +13,7 @@ import com.example.bookbook.entities.Book
 import com.example.bookbook.views.activities.BookDetailsActivity
 import kotlinx.android.synthetic.main.recycler_fav_book_cell.view.*
 
-class UserBookListAdapter(private val list: List<Book>, private val ctx: Context): RecyclerView.Adapter<UserBookListAdapter.ViewHolder>() {
+class UserBookListAdapter( private val ctx: Context, private val list: List<Book>): RecyclerView.Adapter<UserBookListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.recycler_fav_book_cell, parent, false)
