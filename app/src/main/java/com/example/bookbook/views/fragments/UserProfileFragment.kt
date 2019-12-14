@@ -34,13 +34,8 @@ class UserProfileFragment : Fragment() {
     }
 
     // Observers
-    private val profileObserver = Observer<User> {
-        displayUserInformation(it)
-    }
-
-    private val tweetObserver = Observer<List<Tweet>> {
-        updateTweetList(it)
-    }
+    private val profileObserver = Observer<User> { displayUserInformation(it) }
+    private val tweetObserver = Observer<List<Tweet>> { updateTweetList(it) }
 
     // FireBase Objects
     private var mAuth = FirebaseAuth.getInstance()
@@ -97,12 +92,14 @@ class UserProfileFragment : Fragment() {
         txt_fav_books.setOnClickListener {
             val intent = Intent(context, UserBookListActivity::class.java)
             intent.putExtra(Consts.EXTRA_USER_DATA, user)
+            intent.putExtra(UserBookListActivity.EXTRA_SCREEN, UserBookListActivity.EXTRA_FAV_BOOK_SCREEN)
             startActivity(intent)
         }
 
         txt_wish_list.setOnClickListener {
             val intent = Intent(context, UserBookListActivity::class.java)
             intent.putExtra(Consts.EXTRA_USER_DATA, user)
+            intent.putExtra(UserBookListActivity.EXTRA_SCREEN, UserBookListActivity.EXTRA_WISH_LIST_SCREEN)
             startActivity(intent)
         }
     }

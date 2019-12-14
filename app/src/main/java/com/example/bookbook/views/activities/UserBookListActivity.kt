@@ -20,15 +20,19 @@ class UserBookListActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_book_list)
 
+        val user = intent.getSerializableExtra(Consts.EXTRA_USER_DATA) as User
+        this.favBookList = user.favBooks
+        this.wishList = user.wishList
+
+        val selectedScreen = intent.extras?.getInt(EXTRA_SCREEN) ?: 0
+
         // Set View Pager and Tab Layout
         val mAdapter = BookListPageAdapter(supportFragmentManager)
         viewPager.adapter = mAdapter
 
         tabLayout.setupWithViewPager(viewPager)
+        viewPager.currentItem = selectedScreen
 
-        val user = intent.getSerializableExtra(Consts.EXTRA_USER_DATA) as User
-        this.favBookList = user.favBooks
-        this.wishList = user.wishList
 
     }
 
@@ -54,5 +58,11 @@ class UserBookListActivity : FragmentActivity() {
                 else -> null
             }
         }
+    }
+
+    companion object {
+        const val EXTRA_SCREEN = "extra_screen"
+        const val EXTRA_FAV_BOOK_SCREEN = 0
+        const val EXTRA_WISH_LIST_SCREEN = 1
     }
 }
