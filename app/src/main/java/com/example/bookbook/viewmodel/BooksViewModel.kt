@@ -3,45 +3,66 @@ package com.example.bookbook.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bookbook.adapters.BookSearchAdapter
-import com.example.bookbook.api.BookListResponse
 import com.example.bookbook.api.RetrofitInitializer
 import com.example.bookbook.consts.Consts
 import com.example.bookbook.entities.Book
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
-class BooksViewModel(private var bookQuery: String = "") : ViewModel() {
+class BooksViewModel : ViewModel() {
 
     val changeNotifier = MutableLiveData<List<Book>>()
     private val bookService = RetrofitInitializer().bookService()
 
-    fun searchBook(bookQuery: String) {
+    fun searchBookList(bookIDList: List<String>) {
 
-        val call = bookService!!.searchBooks(bookQuery)
+        doAsync {
+            val mutableBookList = mutableListOf<Book>()
 
-        call.enqueue(object : Callback<BookListResponse> {
-            override fun onResponse(
-                call: Call<BookListResponse>,
-                response: Response<BookListResponse>
-            ) {
-                val bookListResponse = response.body()
-                val mutableBookList = mutableListOf<Book>()
+            bookIDList.forEach {
+                val call = bookService!!.getBookByID(it)
+                val response = call.execute()
 
-                bookListResponse!!.items.forEach {
-                    val book = it.getBookObject()
+                if (!response.isSuccessful) {
+                    Log.d(Consts.DEBUG_TAG, "BooksViewModel -> searchBookList -> Falhou ao baixar o livro")
+                }
+                else {
+                    val bookResponse = response.body()
+                    val book = bookResponse?.getBookObject()!!
+
                     mutableBookList.add(book)
                 }
+            }
 
+            uiThread {
                 this@BooksViewModel.changeNotifier.value = mutableBookList
             }
+        }
 
-            override fun onFailure(call: Call<BookListResponse>, t: Throwable) {
-                Log.d(Consts.DEBUG_TAG, "Erro ao baixar volume")
+    }
+
+    fun searchForBooks(query: String) {
+        doAsync {
+            val mutableBookList = mutableListOf<Book>()
+
+            val call = bookService!!.searchForBooks(query)
+            val response = call.execute()
+
+            if (!response.isSuccessful) {
+                Log.d(Consts.DEBUG_TAG, "BooksViewModel -> searchBookID -> Falhou ao baixar o livro")
             }
-        })
+            else {
+                val bookListResponse = response.body()
+                bookListResponse?.items?.forEach {
+                    mutableBookList.add(it.getBookObject())
+                }
+            }
+
+            uiThread {
+                this@BooksViewModel.changeNotifier.value = mutableBookList
+            }
+        }
+
 
     }
 

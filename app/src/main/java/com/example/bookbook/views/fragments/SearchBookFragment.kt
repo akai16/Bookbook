@@ -26,6 +26,12 @@ class SearchBookFragment : Fragment() {
         recycler_search_book.adapter = BookSearchAdapter(context!!, it)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        bookViewModel.changeNotifier.observe(this, changeObserver)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -37,17 +43,12 @@ class SearchBookFragment : Fragment() {
 
         // Setting Search Btn Listener
         view.btn_search_book.setOnClickListener {
-            bookViewModel.searchBook(view.edit_book_search.text.toString())
+            bookViewModel.searchForBooks(view.edit_book_search.text.toString())
         }
 
         return view
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        bookViewModel.changeNotifier.observe(this, changeObserver)
-    }
 
 }

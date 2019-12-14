@@ -28,21 +28,22 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         // Set View Pager and Tab Layout
-        val mAdapter = SearchPageAdapter(activity!!.supportFragmentManager)
-        search_view_pager.adapter = mAdapter
+        search_view_pager.adapter = SearchPageAdapter(activity!!.supportFragmentManager)
 
         search_tab_layout.setupWithViewPager(search_view_pager)
     }
 
     inner class SearchPageAdapter(fragManager: FragmentManager) :
         FragmentPagerAdapter(fragManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+        override fun getCount() = SEARCH_FRAG_COUNT
+
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> SearchBookFragment()
                 1 -> SearchUserFragment()
                 else -> Fragment()
             }
-
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
@@ -52,8 +53,6 @@ class SearchFragment : Fragment() {
                 else -> null
             }
         }
-
-        override fun getCount() = SEARCH_FRAG_COUNT
 
     }
 

@@ -16,9 +16,6 @@ class UserBookListActivity : FragmentActivity() {
     var favBookList: List<String> = listOf()
     var wishList: List<String> = listOf()
 
-    // Fragments or each List
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_book_list)

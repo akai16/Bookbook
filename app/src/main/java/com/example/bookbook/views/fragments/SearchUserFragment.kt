@@ -15,41 +15,29 @@ import com.example.bookbook.entities.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_search_user.*
+import kotlinx.android.synthetic.main.fragment_search_user.view.*
 
 class SearchUserFragment : Fragment() {
 
     var userList = mutableListOf<User>()
 
-    lateinit var db: FirebaseFirestore
-    lateinit var auth: FirebaseAuth
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search_user, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_search_user, container, false)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        //Firebase Instances
-        db = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        btn_search_user.setOnClickListener {
-            listUsers(edit_user_search.text.toString())
+        view.btn_search_user.setOnClickListener {
+            listUsers(view.edit_user_search.text.toString())
         }
 
-        recycler_search_user.adapter = UserSearchAdapter(context!!, userList)
-        recycler_search_user.layoutManager = LinearLayoutManager(context)
+        view.recycler_search_user.adapter = UserSearchAdapter(context!!, userList)
+        view.recycler_search_user.layoutManager = LinearLayoutManager(context)
+
+        return view
     }
 
 

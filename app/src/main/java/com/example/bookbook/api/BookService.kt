@@ -13,5 +13,5 @@ interface BookService {
 
 
     @GET("volumes?maxResults=10&printType=books")
-    fun searchBooks(@Query("q") query: String): Call<BookListResponse>
+    fun searchForBooks(@Query("q") query: String): Call<BookListResponse>
 }
