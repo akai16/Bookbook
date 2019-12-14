@@ -12,6 +12,7 @@ object FirebaseConsts {
         const val FAV_BOOKS_LIST = "favBooks"
         const val WISH_LIST = "wishList"
         const val TWEET_LIST = "tweetList"
+        const val NAME_KEYWORDS = "name_keywords"
     }
 
     object TWEET {

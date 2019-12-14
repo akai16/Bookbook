@@ -3,7 +3,6 @@ package com.example.bookbook.views.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,12 +20,17 @@ import com.example.bookbook.viewmodel.ProfileViewModel
 import com.example.bookbook.views.activities.MessageActivity
 import com.example.bookbook.views.activities.UserBookListActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 
 class UserProfileFragment : Fragment() {
 
     private val TWEET_REQUEST_ACTIVITY = 1
+    private val EXTRA_USER_ID = "userID"
+    private var userID: String? = null
+
+    private val currentUser = FirebaseAuth.getInstance().uid!!
 
     // ViewModels
     private val profileViewModel : ProfileViewModel by lazy {
@@ -37,14 +41,13 @@ class UserProfileFragment : Fragment() {
     private val profileObserver = Observer<User> { displayUserInformation(it) }
     private val tweetObserver = Observer<List<Tweet>> { updateTweetList(it) }
 
-    // FireBase Objects
-    private var mAuth = FirebaseAuth.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        this.userID = arguments!!.getString(EXTRA_USER_ID) ?: "Null"
+
         this.profileViewModel.changeNotifier.observe(this, profileObserver)
-        this.profileViewModel.fetchUserData(mAuth.uid!!)
+        this.profileViewModel.fetchUserData(this.userID!!)
 
         this.profileViewModel.tweetNotifier.observe(this, tweetObserver)
     }
@@ -64,6 +67,10 @@ class UserProfileFragment : Fragment() {
             startActivityForResult(intent, this.TWEET_REQUEST_ACTIVITY)
         }
 
+        if (this.userID != this.currentUser) {
+            view.fab.hide()
+        }
+
         // Tweet Recycler View
         view.recycler_user_tweet.adapter = UserTweetAdapter(mutableListOf(), context!!)
         view.recycler_user_tweet.layoutManager = LinearLayoutManager(context)
@@ -75,7 +82,7 @@ class UserProfileFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == this.TWEET_REQUEST_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
-                this.profileViewModel.fetchUserTweets(mAuth.uid!!)
+                this.profileViewModel.fetchUserTweets(this.userID!!)
             }
         }
     }
@@ -85,6 +92,9 @@ class UserProfileFragment : Fragment() {
 
         // Profile Name
         txt_username.text = user.name
+
+        // User Image
+        Picasso.get().load(user.image).placeholder(android.R.drawable.star_off).into(img_user_avatar)
 
         //  Tweets List
         recycler_user_tweet.adapter = UserTweetAdapter(user.tweetList, context!!)
@@ -110,6 +120,19 @@ class UserProfileFragment : Fragment() {
 
         tweetAdapter.clearAll()
         tweetAdapter.addNewList(tweetList)
+    }
+
+
+    companion object {
+
+        fun getInstance(userID: String): UserProfileFragment {
+            val frag = UserProfileFragment()
+            val bundle = Bundle()
+
+            bundle.putString(frag.EXTRA_USER_ID, userID)
+            frag.arguments = bundle
+            return frag
+        }
     }
 
 }

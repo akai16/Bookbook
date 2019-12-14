@@ -10,7 +10,7 @@ class BookResponse {
 
     inner class VolumeInfo {
         lateinit var title: String
-        lateinit var imageLinks: ImageLinks
+        var imageLinks: ImageLinks? = null
         var description: String? = ""
     }
 
@@ -26,7 +26,7 @@ class BookResponse {
             this.volumeInfo.title,
             "",
             this.volumeInfo.description ?: "" ,
-            this.volumeInfo.imageLinks.smallThumbnail
+            this.volumeInfo.imageLinks?.smallThumbnail
         )
 
         book.id = this.id

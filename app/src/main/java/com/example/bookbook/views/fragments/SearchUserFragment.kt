@@ -12,7 +12,6 @@ import com.example.bookbook.adapters.UserSearchAdapter
 import com.example.bookbook.consts.Consts
 import com.example.bookbook.consts.FirebaseConsts
 import com.example.bookbook.entities.User
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_search_user.*
 import kotlinx.android.synthetic.main.fragment_search_user.view.*
@@ -20,8 +19,8 @@ import kotlinx.android.synthetic.main.fragment_search_user.view.*
 class SearchUserFragment : Fragment() {
 
     var userList = mutableListOf<User>()
-
     private val db = FirebaseFirestore.getInstance()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +46,7 @@ class SearchUserFragment : Fragment() {
 
         this.db
             .collection(FirebaseConsts.USERS_COLLECTION)
-            .whereGreaterThanOrEqualTo("name", queryString)
+            .whereArrayContains(FirebaseConsts.USER.NAME_KEYWORDS, queryString.toLowerCase())
             .get()
             .addOnSuccessListener {
                 if (!it.isEmpty) {
@@ -61,7 +60,6 @@ class SearchUserFragment : Fragment() {
             .addOnFailureListener {
                 Log.d(Consts.DEBUG_TAG, "SearchUserFragment -> Fail")
             }
-
 
     }
 

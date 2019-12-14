@@ -12,6 +12,7 @@ data class User(val name: String) : Serializable {
     var favBooks: MutableList<String> = mutableListOf()
     var wishList: MutableList<String> = mutableListOf()
     var tweetList: MutableList<Tweet> = mutableListOf()
+    var image: String? = null
 
     // Needed for Firebase Deserialization
     constructor() : this( "")

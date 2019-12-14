@@ -51,7 +51,9 @@ class LoginActivity : AppCompatActivity() {
                 registerUserOnFireStore(user!!)
                 goToProfilePage()
 
-            } else {
+            }
+
+            else {
                 showSignInOptions()
             }
         }
@@ -59,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
 
     // Go to Main Activity
     private fun goToProfilePage() {
-
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -71,11 +72,24 @@ class LoginActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
 
         val newUser = User(user.displayName!!)
+        newUser.image = user.photoUrl.toString()
 
         db.collection(FirebaseConsts.USERS_COLLECTION).document(user.uid)
             .set(newUser)
             .addOnSuccessListener{ Log.d(Consts.DEBUG_TAG, "User successfully added!") }
             .addOnFailureListener{ Log.d(Consts.DEBUG_TAG, "Error when registering user") }
+
+        // Set Username keywords for search
+
+        val keywords = mutableListOf<String>()
+        var name = ""
+        for (letter in user.displayName!!) {
+            name += letter.toLowerCase()
+            keywords.add(name)
+        }
+
+        db.collection(FirebaseConsts.USERS_COLLECTION).document(user.uid)
+            .update(FirebaseConsts.USER.NAME_KEYWORDS, keywords)
 
     }
 
@@ -83,24 +97,23 @@ class LoginActivity : AppCompatActivity() {
     private fun showSignInOptions() {
 
         // Sign in Providers
-        val providers = listOf<AuthUI.IdpConfig>(
+        val providers = listOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build()
+            AuthUI.IdpConfig.GoogleBuilder().build()
+//            AuthUI.IdpConfig.PhoneBuilder().build()
         )
-
-        // Customizables Login Page Layout
-        val customLoginLayout = AuthMethodPickerLayout.Builder(R.layout.activity_login)
-            .setGoogleButtonId(R.id.login_btn_google)
-            .setEmailButtonId(R.id.login_btn_email)
-            .setPhoneButtonId(R.id.login_btn_phone)
-            .build()
+//
+//        // Customizables Login Page Layout
+//        val customLoginLayout = AuthMethodPickerLayout.Builder(R.layout.activity_login)
+//            .setGoogleButtonId(R.id.login_btn_google)
+//            .setEmailButtonId(R.id.login_btn_email)
+//            .setPhoneButtonId(R.id.login_btn_phone)
+//            .build()
 
 
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(providers)
             .setTheme(R.style.MyTheme)
-            .setAuthMethodPickerLayout(customLoginLayout)
             .build(), LOGIN_REQUEST_CODE)
     }
 }

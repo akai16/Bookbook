@@ -9,17 +9,23 @@ import com.example.bookbook.adapters.BookSearchAdapter
 import com.example.bookbook.views.fragments.SearchBookFragment
 import com.example.bookbook.views.fragments.SearchFragment
 import com.example.bookbook.views.fragments.UserProfileFragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val profileFragment = UserProfileFragment()
+    private val mAuth = FirebaseAuth.getInstance()
+
+    private var profileFragment: UserProfileFragment? = null
     private val searchFragment = SearchFragment()
-    private var active: Fragment = profileFragment
+    private var active: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        profileFragment = UserProfileFragment.getInstance(mAuth.uid!!)
+        active = profileFragment
 
         supportFragmentManager
             .beginTransaction()
@@ -29,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.frame_container, profileFragment)
+            .add(R.id.frame_container, profileFragment!!)
             .commit()
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -37,17 +43,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile -> {
                     supportFragmentManager
                         .beginTransaction()
-                        .hide(active)
-                        .show(profileFragment)
+                        .hide(active!!)
+                        .show(profileFragment!!)
                         .commit()
-                    active = profileFragment
+                    active = profileFragment!!
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_search-> {
                     supportFragmentManager
                         .beginTransaction()
-                        .hide(active)
+                        .hide(active!!)
                         .show(searchFragment)
                         .commit()
                     active = searchFragment
