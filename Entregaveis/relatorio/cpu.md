@@ -61,3 +61,27 @@ class UserTweetAdapter(private val tweetList: MutableList<Tweet>, private val ct
 
 }
 ~~~
+
+***UserProfileFragment***
+~~~kotlin
+class UserProfileFragment : Fragment() {
+
+...
+
+// Tweet Recycler View
+        view.recycler_user_tweet.adapter = UserTweetAdapter(mutableListOf(), context!!)
+        view.recycler_user_tweet.layoutManager = LinearLayoutManager(context)
+...
+
+}
+
+~~~
+
+***Layout***
+~~~xml
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_user_tweet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+~~~
+
