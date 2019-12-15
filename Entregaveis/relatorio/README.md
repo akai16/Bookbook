@@ -1,4 +1,6 @@
-# <center>BookBook</center>
+# <center>BookBook</center> 
+[Vídeo do aplicativo](https://youtu.be/xf2XyjXhj40)
+
 Bookbook é uma rede social onde entusiastas da literatura podem trocar ideias, experiências e recomendações de leitura, criando um ambiente leve e direcionado para os usuários.
 
 Muitos leitores não possuem contato com outros indivíduos que possuem um gosto literário similar. Logo, no final de um bom livro, estes se encontram sós para compartilhar 
@@ -11,4 +13,5 @@ sobre seus livros.
 
 O Bookbook está estruturado com uma tela de login e cadastro. Uma tela de perfil onde o usuário irá mostrar suas preferências, livros favoritos, livros que deseja ler, e um feed de 
 comentários a respeito de suas leituras (tipo twitter). Será possível, procurar por livros e outros leitores.
+
 
