@@ -28,8 +28,14 @@ class UserBookListFragment : Fragment() {
 
     // Observers
     private val listObserver = Observer<List<Book>> {
-        recycler_user_book_list.adapter = UserBookListAdapter(context!!, it)
+        this.userBookList.removeAll { true }
+        it.forEach {
+            this.userBookList.add(it)
+        }
+        recycler_user_book_list.adapter = UserBookListAdapter(context!!, this.userBookList)
+        recycler_user_book_list.adapter?.notifyDataSetChanged()
     }
+
 
     private val userBookList: MutableList<Book> = mutableListOf()
     private var bookIDList = listOf<String>()
@@ -38,9 +44,6 @@ class UserBookListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         this.bookIDList = arguments?.getStringArrayList(EXTRA_BOOK_LIST) as List<String>
-
-        this.listViewModel.changeNotifier.observe(this, listObserver)
-        this.listViewModel.searchBookList(bookIDList)
 
     }
 
@@ -55,6 +58,14 @@ class UserBookListFragment : Fragment() {
         view.recycler_user_book_list.layoutManager = LinearLayoutManager(context!!)
 
         return view
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        this.listViewModel.changeNotifier.observe(this, listObserver)
+        this.listViewModel.searchBookList(bookIDList)
     }
 
     companion object {

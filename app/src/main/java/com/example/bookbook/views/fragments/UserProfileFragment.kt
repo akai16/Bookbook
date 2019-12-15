@@ -47,9 +47,15 @@ class UserProfileFragment : Fragment() {
         this.userID = arguments!!.getString(EXTRA_USER_ID) ?: "Null"
 
         this.profileViewModel.changeNotifier.observe(this, profileObserver)
-        this.profileViewModel.fetchUserData(this.userID!!)
+
 
         this.profileViewModel.tweetNotifier.observe(this, tweetObserver)
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        this.profileViewModel.fetchUserData(this.userID!!)
     }
 
 

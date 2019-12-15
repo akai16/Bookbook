@@ -33,7 +33,6 @@ class UserBookListActivity : FragmentActivity() {
         tabLayout.setupWithViewPager(viewPager)
         viewPager.currentItem = selectedScreen
 
-
     }
 
 
