@@ -56,4 +56,65 @@ Picasso.get().load(book.image).into(holder.image, object: Callback {
 
 * Trecho de códito utilizando o Retrofit:
 
+***RetrofitInitializer***
+~~~Kotlin
+class RetrofitInitializer {
 
+    fun bookService() = retrofit.create(BookService::class.java)
+
+
+    private val retrofit = Retrofit.Builder()
+            .baseUrl("https://www.googleapis.com/books/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+}
+~~~
+
+***BookService***
+~~~Kotlin
+interface BookService {
+    @GET("volumes/{id}")
+    fun getBookByID(
+        @Path("id") id: String
+    ): Call<BookResponse>
+
+
+    @GET("volumes?maxResults=10&printType=books")
+    fun searchForBooks(@Query("q") query: String): Call<BookListResponse>
+}
+~~~
+
+***Exemplo de Uso - BooksViewModel***
+~~~Kotlin
+class BooksViewModel : ViewModel() {
+    
+    val changeNotifier = MutableLiveData<List<Book>>()
+    private val bookService = RetrofitInitializer().bookService()
+
+    fun searchBookList(bookIDList: List<String>) {
+
+        doAsync {
+            val mutableBookList = mutableListOf<Book>()
+
+            bookIDList.forEach {
+                val call = bookService!!.getBookByID(it)
+                val response = call.execute()
+
+                if (!response.isSuccessful) {
+                    Log.d(Consts.DEBUG_TAG, "BooksViewModel -> searchBookList -> Falhou ao baixar o livro")
+                }
+                else {
+                    val bookResponse = response.body()
+                    val book = bookResponse?.getBookObject()!!
+
+                    mutableBookList.add(book)
+                }
+            }
+
+            uiThread {
+                this@BooksViewModel.changeNotifier.value = mutableBookList
+            }
+        }
+
+    }
+~~~
