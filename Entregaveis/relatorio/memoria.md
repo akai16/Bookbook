@@ -2,7 +2,7 @@
 
 Os testes para avaliar o consumo de Memória do nosso aplicativo foi feito sobre as principais telas: **Tela de perfil**, 
 **Tela de  livros favoritos**, **tela de mensagem**, **busca de livros** e **busca de usuários**. Para medir o consumo 
-de memória foi utilizado a ferramenta *Profiler* do *Android Studio*. Além disso, foi utilizado a ferramenta *LeakCanary* para checar vazamento de memória. Todos estes testes foram feito utilizando um smartphone mi 8 lite da xiaomi.
+de memória foi utilizado a ferramenta *Profiler* do *Android Studio*. Além disso, foi utilizado a ferramenta *LeakCanary* para checar vazamento de memória. No entanto, como pode ser visto nos experimentos, não ocorreu nenhum Leaking. Portanto, não houve a necessidade de fazer um código específico para memória. 
 
 ### Testes utilizando a ferramenta Profiler
 
