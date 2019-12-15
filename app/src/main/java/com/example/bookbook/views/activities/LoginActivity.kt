@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Sign in Providers
         val providers = listOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.EmailBuilder().build()
         )
 
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
