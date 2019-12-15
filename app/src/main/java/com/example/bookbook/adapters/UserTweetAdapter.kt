@@ -14,7 +14,6 @@ class UserTweetAdapter(private val tweetList: MutableList<Tweet>, private val ct
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.recycler_tweet_cell, parent, false)
-
         return ViewHolder(view)
     }
 
@@ -25,16 +24,12 @@ class UserTweetAdapter(private val tweetList: MutableList<Tweet>, private val ct
         val tweet = tweetList[position]
 
         holder.tweetText.text = tweet.text
-//        holder.tweetBookTitle.text = tweet.bookTitle
 
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
         val tweetText = itemView.tweet_txt
-//        val tweetBookTitle = itemView.tweet_book_title
     }
-
 
     fun clearAll() {
         val size = itemCount

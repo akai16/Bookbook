@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
         val mAuth = FirebaseAuth.getInstance()
 
         if (mAuth.currentUser != null) {
-            Toast.makeText(this, "Usuario já está logado", Toast.LENGTH_SHORT).show()
             goToProfilePage()
         }
         else {

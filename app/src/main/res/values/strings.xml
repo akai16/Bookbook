@@ -10,4 +10,8 @@
     <string name="search">Search</string>
     <string name="map">Map</string>
     <string name="wishlist">Wish List</string>
+    <string name="back">Voltar</string>
+    <string name="comentar">Comement</string>
+    <string name="fazer_um_coment_rio">Make a comment</string>
+    <string name="fa_a_um_coment_rio">Make a comment</string>
 </resources>

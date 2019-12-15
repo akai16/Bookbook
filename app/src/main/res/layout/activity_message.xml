@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/fazer_um_coment_rio"
+        android:labelFor="@+id/comment"
+        android:text="@string/comentar"
+        app:layout_constraintBottom_toTopOf="@+id/comment"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/comment"
         android:layout_width="match_parent"
@@ -11,7 +20,7 @@
         android:layout_marginTop="128dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Faça um comentário"
+        android:hint="@string/fa_a_um_coment_rio"
         android:inputType="textMultiLine"
         android:lines="5"
         android:maxLines="10"
@@ -41,6 +50,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="62dp"
+        android:text="@string/back"
         style="@style/Widget.MaterialComponents.Button.Icon"
         app:icon="@android:drawable/ic_menu_close_clear_cancel"
         app:layout_constraintBottom_toTopOf="@+id/comment"
