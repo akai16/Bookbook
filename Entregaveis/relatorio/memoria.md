@@ -2,7 +2,7 @@
 
 Os testes para avaliar o consumo de memória do nosso aplicativo foram feito sobre as seguintes telas: **Tela de perfil**, 
 **Tela de  livros favoritos**, **tela de mensagem**,**busca de livros** e **busca de usuários**. Para medir o consumo 
-de memória foi utilizado a ferramenta *Profiler* do *Android Studio*. Além disso, foi utilizado a ferramenta *LeakCanary* para checar vazamento de memória. No entanto, como pode ser visto nos experimentos, não ocorreu nenhum Leaking. Portanto, não houve a necessidade de fazer um código específico para memória. 
+de memória foi utilizado a ferramenta *Profiler* do *Android Studio*. Além disso, foi utilizado a ferramenta *LeakCanary* para checar vazamento de memória. No entanto, como pode ser visto nos experimentos, não ocorreu nenhum Leaking. Portanto, não houve a necessidade de fazer uma correção específica para memória. 
 
 ### Testes utilizando a ferramenta Profiler
 
