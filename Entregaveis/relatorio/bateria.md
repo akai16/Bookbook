@@ -1,8 +1,8 @@
 # Consumo de bateria
 
-Os testes para avaliar o consumo de rede do nosso aplicativo foram feito sobre as seguintes telas: **Tela de perfil**, 
+Os testes para avaliar o consumo de bateria do nosso aplicativo foram feito sobre as seguintes telas: **Tela de perfil**, 
 **Tela de  livros favoritos**, **tela de mensagem**,**busca de livros** e **busca de usuários**. Para medir o consumo 
-de rede foi utilizado a ferramenta *Profiler* do *Android Studio*.
+de bateria foi utilizado a ferramenta *Profiler* do *Android Studio*.
 
 * Tela de perfil:
 <img src="img/energia tela de perfil.png" alt="Tela de perfil" />
