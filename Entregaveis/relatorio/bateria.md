@@ -2,7 +2,7 @@
 
 Os testes para avaliar o consumo de bateria do nosso aplicativo foram feito sobre as seguintes telas: **Tela de perfil**, 
 **Tela de  livros favoritos**, **tela de mensagem**,**busca de livros** e **busca de usuários**. Para medir o consumo 
-de bateria foi utilizado a ferramenta *Profiler* do *Android Studio*.
+de bateria foi utilizado a ferramenta *Profiler* do *Android Studio*. Como o consumo de bateria esta bastante ligado ao consumo de rede, uma as formas que utilizamos para minimizar o consumo de energia foi utilizando as bibliotecas do **Picasso** e **Retrofit**, os trechos de códigos são os mesmos apresentados no arquivo [bandwidth.md](https://github.com/akai16/Bookbook/blob/master/Entregaveis/relatorio/bandwidth.md).
 
 * Tela de perfil:
 <img src="img/energia tela de perfil.png" alt="Tela de perfil" />
