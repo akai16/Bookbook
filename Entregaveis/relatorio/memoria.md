@@ -8,7 +8,7 @@ de Memoria foi utilizado a ferramenta *Profiler* do *Android Studio* e um smartp
 <img src="img/memoria tela de perfil.png" alt="Tela de perfil" />
 
 * Tela com os livros favoritos
-<img src="img/memoria tela de perfil.png" alt="Tela de livros favoritos" />
+<img src="img/energia tela de livros favoritos.png" alt="Tela de livros favoritos" />
 
 * tela de mensagem
 <img src="img/memoria tela de mensagem.png" alt="Tela de mensagem" />
