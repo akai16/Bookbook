@@ -98,17 +98,7 @@ class LoginActivity : AppCompatActivity() {
         // Sign in Providers
         val providers = listOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
-//            AuthUI.IdpConfig.PhoneBuilder().build()
         )
-//
-//        // Customizables Login Page Layout
-//        val customLoginLayout = AuthMethodPickerLayout.Builder(R.layout.activity_login)
-//            .setGoogleButtonId(R.id.login_btn_google)
-//            .setEmailButtonId(R.id.login_btn_email)
-//            .setPhoneButtonId(R.id.login_btn_phone)
-//            .build()
-
 
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(providers)
