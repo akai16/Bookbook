@@ -1,6 +1,8 @@
 # CPU & Performance
 
-Os testes para avaliar o consumo de CPU do nosso aplicativo foi feito sobre as principais telas: **Tela de perfil**, **Tela de  livros favoritos**, **tela de mensagem**,**busca de livros** e **busca de usuários**. Para medir o consumo de CPU foi utilizado a ferramenta *Profiler* do *Android Studio* e um smartphone mi 8 lite da xiaomi.
+Os testes para avaliar o consumo de CPU do nosso aplicativo foram feito sobre as seguintes telas: **Tela de perfil**, 
+**Tela de  livros favoritos**, **tela de mensagem**,**busca de livros** e **busca de usuários**. Para medir o consumo 
+de CPU foi utilizado a ferramenta *Profiler* do *Android Studio*.
 
 * Tela de perfil:
 <img src="img/cpu tela de perfil.png" alt="Tela de perfil" />
